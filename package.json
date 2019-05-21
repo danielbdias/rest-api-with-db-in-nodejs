@@ -1,0 +1,78 @@
+{
+  "name": "rest-api-with-db-in-nodejs",
+  "version": "0.0.1",
+  "author": "Daniel Baptista Dias",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:danielbdias/rest-api-with-db-in-nodejs.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_PATH=./ && nodemon Infra/api/server.js",
+    "test": "NODE_ENV=test NODE_PATH=./ mocha \"Domain/**/*.test.js\" \"Infra/**/*.test.js\" --require \"Tests/support.js\" --colors --reporter spec",
+    "test:watch": "yarn test -- --watch",
+    "coverage": "nyc yarn test",
+    "lint": "standard -v \"Domain/**/*.js\" \"Infra/**/*.js\" | snazzy",
+    "lint:fix": "standard --fix \"Domain/**/*.js\" \"Infra/**/*.js\" | snazzy",
+    "lint:watch": "watch -p \"+(Domain|Infra)/**/*.js\" -c \"yarn lint\"",
+    "db:create": "node ./Infra/migrations create",
+    "db:destroy": "node ./Infra/migrations destroy"
+  },
+  "engines": {
+    "node": "12.2.0",
+    "npm": "6.9.0"
+  },
+  "nyc": {
+    "statements": 95,
+    "branches": 95,
+    "functions": 95,
+    "lines": 95,
+    "check-coverage": true,
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "exclude": [
+      "node_modules/**/*",
+      "Domain/**/*.test.js",
+      "Infra/**/*.test.js",
+      "Tests/**/*"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "context",
+      "it",
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach"
+    ]
+  },
+  "dependencies": {
+    "@google/maps": "^0.5.5",
+    "body-parser": "^1.19.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.17.0",
+    "joi": "^14.3.1",
+    "pg": "^7.10.0",
+    "speck-entity": "^0.2.1",
+    "striptags": "^3.1.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.18.11",
+    "nyc": "^14.0.0",
+    "sinon": "^7.3.2",
+    "snazzy": "^8.0.0",
+    "standard": "^12.0.1",
+    "watch-cli": "^0.2.3",
+    "yargs": "^13.2.4"
+  }
+}
